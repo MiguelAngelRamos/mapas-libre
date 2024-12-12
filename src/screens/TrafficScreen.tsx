@@ -31,8 +31,24 @@ const TrafficScreen = () => {
 
   const trafficGeoJSON = getTrafficGeoJSON();
   return (
-    <View>
-
+    <View style={styles.container}>
+      <MapLibreGL.MapView
+        style={styles.map}
+        styleURL="https://demotiles.maplibre.org/style.json"
+      >
+        <MapLibreGL.Camera zoomLevel={12} centerCoordinate={[-70.16265, -20.23070]} />
+        {trafficGeoJSON && (
+          <MapLibreGL.ShapeSource id="traffic" shape={trafficGeoJSON}>
+            <MapLibreGL.LineLayer
+              id="trafficLayer"
+              style={{
+                lineColor: 'red',
+                lineWidth: 5,
+              }}
+            />
+          </MapLibreGL.ShapeSource>
+        )}
+      </MapLibreGL.MapView>
     </View>
   )
 }
