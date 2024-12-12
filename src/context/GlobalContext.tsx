@@ -23,7 +23,7 @@ const GlobalContextProvider: React.FC<{children: ReactNode}> = ({ children }) =>
 
     const fetchTrafficFata = async (point: string ) => {
       try {
-        const response = await fetch(`https:/api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?key=aquivatuapikey`);
+        const response = await fetch(`https:/api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?key=aquivatuapikey&point=${point}`);
 
         const data = await response.json();
         console.log('Traffic Data: ', data);
