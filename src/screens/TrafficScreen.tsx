@@ -1,35 +1,40 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React, { useContext, useEffect } from 'react'
-import MapLibreGL from '@maplibre/maplibre-react-native'
+import React, { useContext, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import { GlobalContext } from '../context/GlobalContext';
 import { FeatureCollection, LineString } from 'geojson';
 
-MapLibreGL.setAccessToken(null); // no necesita token es totalmente libre
+// Inicializa MapLibre (puedes dejar el token como null si no es necesario)
+MapLibreGL.setAccessToken(null);
 
 const TrafficScreen = () => {
-  const {trafficData, fetchTrafficFata} = useContext(GlobalContext);
+  const { trafficData, fetchTrafficData } = useContext(GlobalContext);
 
   useEffect(() => {
-    fetchTrafficFata('-33.390162, -70.622351'); // Obtener trafico con estas coordenadas
+    fetchTrafficData('-33.390162, -70.622351');
   }, []);
 
-  const getTrafficGeoJSON = ():FeatureCollection<LineString> | null => {
-    if (!trafficData?.flowSegmentData?.coordinates) return null; 
-    const coordinates = trafficData.flowSegmentData.coordinates.coordinate.map((coord: {longitude: number; latitude: number}) => [coord.longitude, coord.latitude]);
+  const getTrafficGeoJSON = (): FeatureCollection<LineString> | null => {
+    if (!trafficData?.flowSegmentData?.coordinates) return null;
+
+    const coordinates = trafficData.flowSegmentData.coordinates.coordinate.map(
+      (coord: { longitude: number; latitude: number }) => [coord.longitude, coord.latitude]
+    );
 
     return {
       type: 'FeatureCollection',
       features: [
         {
           type: 'Feature',
-          geometry: { type: 'LineString', coordinates},
-          properties: {}
-        }
-      ]
-    }
+          geometry: { type: 'LineString', coordinates },
+          properties: {},
+        },
+      ],
+    };
   };
 
   const trafficGeoJSON = getTrafficGeoJSON();
+
   return (
     <View style={styles.container}>
       <MapLibreGL.MapView
@@ -50,16 +55,16 @@ const TrafficScreen = () => {
         )}
       </MapLibreGL.MapView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   map: {
-    flex: 1
-  }
-})
+    flex: 1,
+  },
+});
 
-export default TrafficScreen
+export default TrafficScreen;
