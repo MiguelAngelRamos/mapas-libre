@@ -17,3 +17,9 @@ npm install --save-dev typescript @types/react @types/react-native
 npm install @maplibre/maplibre-react-native
 
 ```
+
+## Instalaciones para los tipos de Geo
+
+```sh
+npm install --save-dev @types/geojson
+```
