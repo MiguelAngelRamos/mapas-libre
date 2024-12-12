@@ -10,3 +10,10 @@ npm install react-native-screens react-native-safe-area-context
 ```sh
 npm install --save-dev typescript @types/react @types/react-native
 ```
+
+## Mapas
+
+```
+npm install @maplibre/maplibre-react-native
+
+```
